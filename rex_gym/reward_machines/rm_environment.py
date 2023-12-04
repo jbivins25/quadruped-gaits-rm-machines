@@ -14,7 +14,7 @@ Notes:
 import gym
 from gym import spaces
 import numpy as np
-from legged_gym.reward_machines.reward_machine import RewardMachine
+from quadruped-gaits-rm-machines.rex_gym.reward_machines.reward_machine import RewardMachine
 
 
 #class RewardMachineEnv(gym.Wrapper):
