@@ -1,5 +1,5 @@
-from legged_gym.reward_machines.reward_functions import *
-from legged_gym.reward_machines.reward_machine_utils import evaluate_dnf, value_iteration
+from quadruped-gaits-rm-machines.rex_gym.reward_machines.reward_functions import *
+from quadruped-gaits-rm-machines.rex_gym.reward_machines.reward_machine_utils import evaluate_dnf, value_iteration
 import time
 
 class RewardMachine:
