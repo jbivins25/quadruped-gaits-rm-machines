@@ -250,6 +250,7 @@ class RexGymEnv(gym.Env):
         self._init_orient = init_orient
         self._target_position = target_position
         self._start_position = start_position
+        self._previous_position = start_position
         # computation support params
         self._random_pos_target = False
         self._random_pos_start = False
@@ -506,6 +507,7 @@ class RexGymEnv(gym.Env):
         if self._backwards:
             # backwards gait
             current_x = -current_x
+        xChange = abs(current_x) - abs(self._previous_position) 
         if self._target_position is not None:
             self._target_position = abs(self._target_position)
             # 0.15 tolerance
@@ -523,6 +525,16 @@ class RexGymEnv(gym.Env):
             forward_reward = current_x
         # Cap the forward reward if a cap is set.
         forward_reward = min(forward_reward, self._forward_reward_cap)
+        self._previous_position = current_x
+        fL = 0 if else 1
+        fR = 0 if else 1
+        bL = 0 if else 1
+        bR = 0 if else 1
+        height = True if ( -0.006 < current_base_position[0] and current_base_position[0] < 0 ) else False
+        obs = [fL, fR, bL, bR, height]
+        gait = self.RM._step(obs, xChange)
+        if gait and forward_reward > 0:
+            forward_reward = forward_reward * ( 1.5 )
         # Penalty for sideways translation.
         # drift_reward = -abs(current_base_position[1] - self._last_base_position[1])
         drift_reward = -abs(current_base_position[1])
