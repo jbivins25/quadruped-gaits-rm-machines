@@ -480,6 +480,17 @@ class Rex:
         motor_velocities = np.multiply(motor_velocities, self._motor_direction)
         return motor_velocities
 
+    def GetContactPoints(self):
+        contact_points = p.getContactPoints(self.robot, self.plane)
+
+        foot_contact_vector = [0, 0, 0, 0]
+
+        for point in contact_points:
+            robot_link = point[3]
+            if robot_link in self._foot_link_ids:
+                foot_contact_vector[index] = 1
+        return foot_contact_vector
+
     def GetMotorVelocities(self):
         """Get the velocity of all eight motors.
 
